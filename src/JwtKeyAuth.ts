@@ -1,12 +1,12 @@
-import { JwtService, KeyStore, IJwt } from './types';
+import { IJwtService, IKeyStore, IJwt } from './types';
 
 export class JwtKeyAuth {
-  constructor(
-    private gJwtService: JwtService,
-    private gKeyStore: KeyStore,
+  constructor (
+    private gJwtService: IJwtService,
+    private gKeyStore: IKeyStore,
   ) { }
 
-  public async verify(token: IJwt): Promise<boolean> {
+  public async verify (token: IJwt): Promise<boolean> {
     const keyName = (await this.gJwtService.getPayload(token)).keyName;
     const publicKey = await this.gKeyStore.get(keyName);
 
@@ -17,7 +17,7 @@ export class JwtKeyAuth {
     return this.gJwtService.verify(token, publicKey);
   }
 
-  public async generate(keyName: string): Promise<IJwt> {
+  public async generate (keyName: string): Promise<IJwt> {
     const privateKey = await this.gKeyStore.getPrivate();
 
     return this.gJwtService.sign(keyName, privateKey);

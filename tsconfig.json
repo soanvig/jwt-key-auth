@@ -9,8 +9,5 @@
       "baseUrl": "./",
       "esModuleInterop": true,
       "strictPropertyInitialization": false
-    },
-    "exclude": [
-      "./**/*.spec.ts",
-    ]
+    }
 }

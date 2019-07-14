@@ -1,0 +1,31 @@
+variables:
+  IMAGE: tarampampam/node:alpine
+
+stages:
+  - test
+  - docs
+  - deploy
+
+before_script:
+  - yarn install
+
+# Unit tests
+unit tests:
+  stage: test
+  image: $IMAGE
+  script:
+    - npm run test:unit
+
+# Test TSLint
+lint:
+  stage: test
+  image: $IMAGE
+  script:
+    - npm run test:lint
+
+# Test TypeScript
+ts:
+  stage: test
+  image: $IMAGE
+  script:
+    - npm run test:ts

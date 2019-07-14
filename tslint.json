@@ -1,0 +1,21 @@
+{
+    "extends": [
+        "tslint-config-standard",
+        "tslint-eslint-rules"
+    ],
+    "rules": {
+        "trailing-comma": [
+          true, {
+            "multiline": "always",
+            "singleline": "never",
+            "esSpecCompliant": true
+          }
+        ],
+        "semicolon": true,
+        "no-redundant-jsdoc": true,
+        "no-shadowed-variable": true,
+        "no-floating-promises": false,
+        "arrow-parens": true
+    }
+}
+

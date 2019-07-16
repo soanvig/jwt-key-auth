@@ -14,7 +14,7 @@ export interface IKeyStore {
 export interface IJwtService {
   verify (token: IJwt, publicKey: Buffer): Promise<boolean>;
   sign (keyName: string, privateKey: Buffer): Promise<IJwt>;
-  getPayload (token: IJwt): Promise<IJwtPayload>;
+  getPayload (token: IJwt): IJwtPayload;
 }
 
 export interface IKey {

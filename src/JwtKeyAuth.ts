@@ -7,7 +7,7 @@ export class JwtKeyAuth {
   ) { }
 
   public async verify (token: IJwt): Promise<boolean> {
-    const keyName = (await this.gJwtService.getPayload(token)).keyName;
+    const keyName = this.gJwtService.getPayload(token).keyName;
     const publicKey = await this.gKeyStore.get(keyName);
 
     if (!publicKey) {

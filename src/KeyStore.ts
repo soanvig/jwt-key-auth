@@ -4,7 +4,7 @@ export class KeyStore implements IKeyStore {
   private fPrivateKey: Buffer | null = null;
   private fPublicKeys: Map<string, Buffer> = new Map();
 
-  public add (keyName: string, buffer: Buffer): void {
+  public async add (keyName: string, buffer: Buffer): Promise<void> {
     if (this.fPublicKeys.has(keyName)) {
       throw new Error(`Cannot add public key of name "${keyName}. The name is already taken.`);
     }
@@ -12,7 +12,7 @@ export class KeyStore implements IKeyStore {
     this.fPublicKeys.set(keyName, buffer);
   }
 
-  public addPrivate (buffer: Buffer): void {
+  public async addPrivate (buffer: Buffer): Promise<void> {
     if (this.fPrivateKey) {
       throw new Error('Cannot add private key. The key is already added.');
     }

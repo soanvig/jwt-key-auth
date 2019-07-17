@@ -17,16 +17,6 @@ export interface IJwtService {
   getPayload (token: IJwt): IJwtPayload;
 }
 
-export interface IKey {
-  name: string;
-  buffer: Buffer;
-}
-
-export interface IKeyPath {
-  name: string;
-  path: string;
-}
-
 export interface IJwtPayload {
   keyName: string;
 }

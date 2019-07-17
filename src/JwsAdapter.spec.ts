@@ -24,7 +24,6 @@ describe('JwsAdapter', () => {
 
   it('should properly sign and verify token with given keys', async () => {
     const token: IJwt = await Adapter.sign(keyName, privateKey);
-    console.log(token);
     const verifyResult: boolean = await Adapter.verify(token, publicKey);
 
     expect(verifyResult).toBe(true);

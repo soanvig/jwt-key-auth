@@ -28,7 +28,7 @@ describe('KeyStore', () => {
 
     it('should throw if keyName is occupied during adding', async () => {
       await keyStore.add('key1', Buffer.alloc(0));
-      expect(async () => keyStore.add('key1', Buffer.alloc(0))).toThrow();
+      await expect(keyStore.add('key1', Buffer.alloc(0))).rejects.toThrow();
     });
   });
 
@@ -44,7 +44,7 @@ describe('KeyStore', () => {
     });
 
     it('should throw if private key was not set before getting', async () => {
-      expect(await keyStore.getPrivate()).rejects.toThrow();
+      await expect(keyStore.getPrivate()).rejects.toThrow();
     });
 
     it('should throw if private key is already set', async () => {
@@ -52,7 +52,7 @@ describe('KeyStore', () => {
 
       await keyStore.addPrivate(buf);
 
-      expect(async () => keyStore.addPrivate(buf)).toThrow();
+      await expect(keyStore.addPrivate(buf)).rejects.toThrow();
     });
   });
 });

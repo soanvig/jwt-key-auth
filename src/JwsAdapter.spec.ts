@@ -17,13 +17,13 @@ describe('JwsAdapter', () => {
   });
 
   it('should return proper payload (keyName) encoded', async () => {
-    const token: IJwt = await Adapter.sign(keyName, privateKey);
+    const token: IJwt = await Adapter.sign({ keyName }, privateKey);
 
     expect(Adapter.getPayload(token).keyName).toBe(keyName);
   });
 
   it('should properly sign and verify token with given keys', async () => {
-    const token: IJwt = await Adapter.sign(keyName, privateKey);
+    const token: IJwt = await Adapter.sign({ keyName }, privateKey);
     const verifyResult: boolean = await Adapter.verify(token, publicKey);
 
     expect(verifyResult).toBe(true);

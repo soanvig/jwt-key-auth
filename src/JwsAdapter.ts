@@ -18,12 +18,15 @@ export class JwsAdapter implements IJwtService {
   }
 
   /**
-   * @TODO change keyName into payload
+   * Signs given payload with given private key.
+   *
+   * @param payload - payload to sign
+   * @param privateKey - buffer of private key to use for signing
    */
-  public async sign (keyName: string, privateKey: Buffer): Promise<IJwt> {
+  public async sign (payload: IJwtPayload, privateKey: Buffer): Promise<IJwt> {
     return sign({
       header: { alg: JwsAdapter.ALG },
-      payload: { keyName },
+      payload,
       privateKey,
     });
   }

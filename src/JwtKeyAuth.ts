@@ -51,6 +51,6 @@ export class JwtKeyAuth {
   public async generate (keyName: string): Promise<IJwt> {
     const privateKey = await this.gKeyStore.getPrivate();
 
-    return this.gJwtService.sign(keyName, privateKey);
+    return this.gJwtService.sign({ keyName }, privateKey);
   }
 }

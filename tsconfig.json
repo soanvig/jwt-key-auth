@@ -8,6 +8,8 @@
       "strict": true,
       "baseUrl": "./",
       "esModuleInterop": true,
-      "strictPropertyInitialization": false
-    }
+      "strictPropertyInitialization": false,
+      "outDir": "dist"
+    },
+    "files": ["src/index.ts"]
 }

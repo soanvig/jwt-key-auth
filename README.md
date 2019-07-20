@@ -24,3 +24,76 @@ Mounting directories with public keys, and mounting single private key to contai
 `jwt-key-auth` doesn't reinvent the wheel - instead it relies on battle-tested JWT tokens, RSA security and SSH-like protocol.
 
 Library allows for different permissions in different services. By mounting one set of public keys in one container, and another set in another one, developer can build complex authorization schemas.
+
+## Installation
+
+`npm install --save jwt-key-auth`
+
+or
+
+`yarn add jwt-key-auth`
+
+## Usage
+
+`jwt-key-auth` primary class is `JwtKeyAuth`, naturally.
+
+Import it by:
+
+`import { JwtKeyAuth } from 'jwt-key-auth';`
+
+Now, `JwtKeyAuth` requires two services: one for JWT logic, and another one for key management. Fortunately, `jwy-key-auth` comes with built-in implementations:
+
+`import { JwsAdapter } from 'jwt-key-auth';`
+
+`import { FileKeyStore } from 'jwt-key-auth';`
+
+Now, register everything:
+
+```js
+import { JwtKeyAuth, JwsAdapter, FileKeyStore } from 'jwt-key-auth';
+
+async function createAuthService () {
+  const jwtService = new JwsAdapter();
+  const keyStore = new FileKeyStore();
+  const jwtKeyAuth = new JwtKeyAuth(jwtService, keyStore);
+
+  await keyStore.fill('/absolute/path/to/public/keys');
+  await keyStore.addPrivateKeyFile('/absolute/path/to/private/key.pem');
+
+  return jwtKeyAuth;
+}
+```
+
+(note: instead of using `FileKeyStore`, you may use `KeyStore` which manages key, but requires buffers instead of paths to files).
+
+And now, we can start signing and verifying keys:
+
+```js
+import { JwtKeyAuth, JwsAdapter, FileKeyStore } from 'jwt-key-auth';
+
+async function createAuthService () {
+  const jwtService = new JwsAdapter();
+  const keyStore = new FileKeyStore();
+  const jwtKeyAuth = new JwtKeyAuth(jwtService, keyStore);
+
+  await keyStore.fill('/absolute/path/to/public/keys');
+  await keyStore.addPrivateKeyFile('/absolute/path/to/private/key.pem');
+
+  return jwtKeyAuth;
+}
+
+async function main () {
+  const thisServiceName = 'my_name';
+  const authService = await createAuthService();
+
+  const receivedToken = '...'
+  const myToken = await authService.generate(thisServiceName);
+  const tokenVerification = await authService.verify(receivedToken);
+
+  console.log(myToken); // token to send to another services
+  console.log(tokenVerification); // true or false, depending if it is correct and if we have public key of the receive that wants to access us
+}
+
+main();
+```
+

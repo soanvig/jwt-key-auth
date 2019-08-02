@@ -1,8 +1,12 @@
 {
   "name": "jwt-key-auth",
   "version": "0.1.0",
-  "description": "jwt-key-auth",
-  "author": "Soanvig <soanvig@gmail.com>",
+  "description": "JWT and key-based authentication utility for microservices",
+  "author": "Mateusz Koteja <soanvig@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/soanvig/jwt-key-auth.git"
+  },
   "license": "LGPL-3.0-or-later",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
@@ -10,7 +14,8 @@
     "test:unit": "jest",
     "test:lint": "tslint --project .",
     "test:ts": "tsc --noEmit",
-    "run": "ts-node ./src/index.ts"
+    "run": "ts-node ./src/index.ts",
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
